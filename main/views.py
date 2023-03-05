@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
 
 # Create your views here.
@@ -14,7 +15,7 @@ def register_user(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('main:home')
+            return redirect('main:account')
     else:
         form = RegistrationForm()
 
@@ -32,7 +33,7 @@ def login_user(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('main:home')
+                return redirect('main:account')
             else:
                 form.add_error(None, 'Invalid username or password.')
     else:
@@ -43,3 +44,13 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('main:home')
+
+@login_required
+def account(request):
+    user = request.user
+    context = {
+        'username': user.username,
+        'first_name': user.first_name,
+        'email': user.email
+    }
+    return render(request, 'main/account.html', context)
