@@ -1,0 +1,61 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Play2Learn{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/styles.css' %}">
+    <script src="https://kit.fontawesome.com/874dd9899f.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <a href="{% url 'main:home' %}">
+        <h1>Play<sup>2</sup>Learn</h1>
+      </a>
+      <nav>
+        <ul>
+            <li class="dropdown">
+              <a href="{% url 'main:login' %}">Login</a>
+              <div class="dropdown-content">
+                <a href="{% url 'main:register' %}">Register</a>
+                <a href="#">My Account</a>
+              </div>
+            </li>
+            <li><a href="#">About</a></li>
+            <li class="dropdown">
+              <a href="#">Games</a>
+              <div class="dropdown-content">
+                <a href="#">Anagram Hunt</a>
+                <a href="#">Math Facts</a>
+                <a href="#">Leaderboards</a>
+              </div>
+            </li>
+            <li><a href="{% url 'main:home' %}">Home</a></li>
+          </ul>          
+      </nav>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Play2Learn</p>
+        <address>
+          <a href="contact-us.html">
+            <i class="fas fa-envelope fa-3x"></i>
+          </a>
+          <a href="https://www.facebook.com">
+            <i class="fab fa-facebook-square fa-3x"></i>
+          </a>
+          <a href="https://twitter.com">
+            <i class="fab fa-twitter-square fa-3x"></i>
+          </a>
+          <a href="https://instagram.com">
+            <i class="fab fa-instagram-square fa-3x"></i>
+          </a>
+        </address>
+      </footer>      
+  </body>
+</html>
